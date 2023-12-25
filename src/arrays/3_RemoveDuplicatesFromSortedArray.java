@@ -1,5 +1,6 @@
+// https://leetcode.com/problems/remove-duplicates-from-sorted-array/description/
+
 package arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 

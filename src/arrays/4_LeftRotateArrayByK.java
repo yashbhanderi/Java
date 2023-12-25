@@ -1,8 +1,5 @@
+// https://leetcode.com/problems/rotate-array/
 package arrays;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 
 class LeftRotateArrayByK {
 
