@@ -19,4 +19,22 @@ public class Common {
         arr[i] = arr[j];
         arr[j] = temp;
     }
+    
+    public static int BinarySearch(int[] arr, int start, int end, int x) {
+        int l = start, r = end;
+        while (l <= r) {
+            int m = l + (r - l) / 2;
+
+            if (arr[m] == x)
+                return m;
+
+            if (arr[m] < x) 
+                l = m + 1;
+
+            else 
+                r = m - 1;
+        }
+        
+        return -1;
+    }
 }
