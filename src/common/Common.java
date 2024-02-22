@@ -20,7 +20,7 @@ public class Common {
         arr[j] = temp;
     }
     
-    public static int BinarySearch(int[] arr, int start, int end, int x) {
+    public static int binarySearch(int[] arr, int start, int end, int x) {
         int l = start, r = end;
         while (l <= r) {
             int m = l + (r - l) / 2;
@@ -36,5 +36,43 @@ public class Common {
         }
         
         return -1;
+    }
+
+    public static int lowerBound(int arr[], int l, int r, int target) {
+
+        while(l<r) {
+            int mid = l + ((r-l)/2);
+
+            if(arr[mid] < target)
+                l = mid+1;
+
+            else 
+                r = mid;
+        }
+
+        if(l < arr.length && target > arr[l]) {
+            l++;
+        }
+
+        return l;
+    }
+
+    public static int upperBound(int arr[], int l, int r, int target) {
+
+        while(l<r) {
+            int mid = l + ((r-l)/2);
+
+            if(arr[mid] <= target)
+                l = mid+1;
+
+            else
+                r = mid;
+        }
+
+        if(l < arr.length && target > arr[l]) {
+            l++;
+        }
+
+        return l;
     }
 }
