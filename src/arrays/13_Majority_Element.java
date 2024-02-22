@@ -23,7 +23,7 @@ class MajorityElement {
             }
         }
         
-        
+        // Pappu 1
 
         System.out.println(candidate);
     }
