@@ -24,6 +24,7 @@ class MajorityElement {
         }
         
         // Pappu 1
+        // Pappu 2
 
         System.out.println(candidate);
     }
