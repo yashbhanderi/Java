@@ -23,6 +23,7 @@ class MajorityElement {
             }
         }
         
+        
 
         System.out.println(candidate);
     }
