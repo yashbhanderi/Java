@@ -7,9 +7,9 @@ public class ReverseNumber {
 
         // Method 1: Convert into string
 
-        String str = num.toString();
+        // String str = num.toString();
 
-//        System.out.println(str.length());
+        // System.out.println(str.length());
 
         // Method 2:
 
