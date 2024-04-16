@@ -28,6 +28,7 @@ class DeleteNode {
         node.data = temp;
 
         node.next = nextNode.next;
+        return null;
     }
     
     public static void main(String[] args) {
