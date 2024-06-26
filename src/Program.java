@@ -8,7 +8,7 @@ public class Program {
         list.add(2);
         list.add(4);
 
-        var ans = Collections.binarySearch(list, 3);
+        var ans = Collections.binarySearch(list, 1);
 
         System.out.println(ans);
     }
