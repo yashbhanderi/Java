@@ -1,7 +1,5 @@
 package StackQueue;
-
 import java.util.HashMap;
-import java.util.List;
 import java.util.Stack;
 
 class NextGreaterElement {
@@ -16,7 +14,8 @@ class NextGreaterElement {
             if (st.empty()) {
                 st.push(arr2[i]);
                 mp.put(arr2[i], -1);
-            } else {
+            } 
+            else {
                 while (!st.empty() && arr2[i] > st.peek()) {
                     st.pop();
                 }
@@ -41,5 +40,9 @@ class NextGreaterElement {
         var arr2 = new int[]{1, 3, 4, 2};
 
         var ans = nextGreaterElement(arr1, arr2);
+        
+        for (int ans2 : ans) {
+            System.err.println(ans2);
+        }
     }
 }

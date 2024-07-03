@@ -1,15 +1,18 @@
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.stream.IntStream;
 
 public class Program {
     public static void main(String[] args) {
-        var list = new ArrayList<Integer>();
-        list.add(1);
-        list.add(2);
-        list.add(4);
+        var arr = new int[] {0,1,2,2,3,0,4,2};
 
-        var ans = Collections.binarySearch(list, 1);
+        int val = 2;
 
-        System.out.println(ans);
+        var ans = new int[arr.length];
+
+        int cnt = 0;
+        for (int arr2 : arr) {
+            if(arr2 != val) ans[cnt++] = arr2;
+        }
+
+        arr = ans;
     }
 }
