@@ -1,5 +1,7 @@
 package Common;
 
+import Trees.TreeNode;
+
 public class Common {
 
     public static void reverseArray(int[] arr, int start, int end) {
@@ -74,5 +76,11 @@ public class Common {
         }
 
         return l;
+    }
+    
+    public static int heightOfBinaryTree(TreeNode root) {
+        if(root == null) return 0;
+        
+        return 1 + Math.max(heightOfBinaryTree(root.left), heightOfBinaryTree(root.right));
     }
 }
