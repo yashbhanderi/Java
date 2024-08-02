@@ -1,126 +1,43 @@
 package Trees.BinaryTrees;
 import Trees.TreeNode;
+
 import java.util.*;
 
 public class VerticalOrderTraversalOfBinaryTree {
     
-    public static List<List<Integer>> verticalOrderTraversal(TreeNode root) {
-        List<List<Integer>> list = new ArrayList<>();
+    public static void dfs(TreeNode root, int width, int height, TreeMap<Integer, TreeMap<Integer, PriorityQueue<Integer>>> map) {
         
-        if(root == null) return list;
+        if(root == null) return;
         
-        Queue<TreeNode> queue = new LinkedList<>();
-        Map<Integer, Map<Integer, List<Integer>>> widthHeightMapping = new TreeMap<>();
-        Map<TreeNode, List<Integer>> nodeWidthHeightMapping = new HashMap<>();
-        
-        queue.add(root);
-        nodeWidthHeightMapping.put(root, List.of(0, 0));
-        
-        Map<Integer, List<Integer>> heightMapping = new HashMap<>();
-        heightMapping.put(0, List.of(root.val));
-        widthHeightMapping.put(0, heightMapping);
-        
-        while (!queue.isEmpty()) {
-            
-            var top = queue.poll();
-            
-            var nodeWidthHeight = nodeWidthHeightMapping.get(top);
-            var currentWidth = nodeWidthHeight.get(0);
-            var currentHeight = nodeWidthHeight.get(1);
-            
-            if(top.left != null) {
-                
-                var newWidth = currentWidth-1;
-                var newHeight = currentHeight+1;
-                var newNode = top.left;
-                
-                if(!widthHeightMapping.containsKey(newWidth)) {
-                    Map<Integer, List<Integer>> height = new HashMap<>();
-                    height.put(newHeight, List.of(newNode.val));
-                    
-                    widthHeightMapping.put(newWidth, height);
-                }
-                
-                else {
-                    var width = widthHeightMapping.get(newWidth);
-                    
-                    if(!width.containsKey(newHeight)) {
-                        Map<Integer, List<Integer>> height = new HashMap<>();
-                        heightMapping.put(newHeight, List.of(newNode.val));
-
-                        widthHeightMapping.put(newWidth, height);
-                    }
-                    
-                    else {
-                        
-                        var heightList = width.get(newHeight);
-                        heightList.add(newNode.val);
-
-                        Map<Integer, List<Integer>> height = new HashMap<>();
-                        heightMapping.put(newHeight, heightList);
-                        
-                        widthHeightMapping.put(newWidth, height);
-                    }
-                }
-                
-                nodeWidthHeightMapping.put(newNode, List.of(newWidth, newHeight));
-                queue.add(newNode);
-            }
-
-            if(top.right != null) {
-
-                var newWidth = currentWidth+1;
-                var newHeight = currentHeight+1;
-                var newNode = top.right;
-
-                if(!widthHeightMapping.containsKey(newWidth)) {
-                    Map<Integer, List<Integer>> height = new HashMap<>();
-                    height.put(newHeight, List.of(newNode.val));
-
-                    widthHeightMapping.put(newWidth, height);
-                }
-
-                else {
-                    var width = widthHeightMapping.get(newWidth);
-
-                    if(!width.containsKey(newHeight)) {
-                        Map<Integer, List<Integer>> height = new HashMap<>();
-                        heightMapping.put(newHeight, List.of(newNode.val));
-
-                        widthHeightMapping.put(newWidth, height);
-                    }
-
-                    else {
-
-                        var heightList = width.get(newHeight);
-                        heightList.add(newNode.val);
-
-                        Map<Integer, List<Integer>> height = new HashMap<>();
-                        heightMapping.put(newHeight, heightList);
-
-                        widthHeightMapping.put(newWidth, height);
-                    }
-                }
-
-                nodeWidthHeightMapping.put(newNode, List.of(newWidth, newHeight));
-                queue.add(newNode);
-            }
-            
+        if(!map.containsKey(width)) {
+            map.put(width, new TreeMap<>());
         }
         
-        for(var width: widthHeightMapping.keySet()) {
-
-            System.out.println("Width "+ width);
-            
-            var widthMapping = widthHeightMapping.get(width); 
+        if(!map.get(width).containsKey(height)) {
+            map.get(width).put(height, new PriorityQueue<>());
+        }
+        
+        map.get(width).get(height).offer(root.val);
+        
+        dfs(root.left, width - 1, height + 1, map);
+        dfs(root.right, width + 1, height + 1, map);
+    }
+    
+    public static List<List<Integer>> verticalOrderTraversalOfBinaryTree(TreeNode root) {
+        List<List<Integer>> list = new ArrayList<>();
+        
+        TreeMap<Integer, TreeMap<Integer, PriorityQueue<Integer>>> map = new TreeMap<>();
+        dfs(root, 0, 0, map);
+        
+        for(var width: map.keySet()) {
             List<Integer> subList = new ArrayList<>();
-            
-            for(var height: widthMapping.keySet()) {
-                System.out.println("Height "+ height);
-                System.out.println(Arrays.toString(widthMapping.get(height).toArray()));
-                subList.addAll(widthMapping.get(height));
+            for(var height: map.get(width).keySet()) {
+                var queue = map.get(width).get(height);
+
+                while(!queue.isEmpty()) {
+                    subList.add(queue.poll());
+                }
             }
-            
             list.add(subList);
         }
         
@@ -145,7 +62,7 @@ public class VerticalOrderTraversalOfBinaryTree {
         head2.left = head5;
         head2.right = head6;
 
-        var list = verticalOrderTraversal(head);
+        var list = verticalOrderTraversalOfBinaryTree(head);
         for(var e: list) {
             for (var ele: e) {
                 System.out.print(ele + " ");
